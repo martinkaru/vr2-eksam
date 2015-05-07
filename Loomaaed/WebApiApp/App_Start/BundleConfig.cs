@@ -23,6 +23,15 @@ namespace WebApiApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Custom sitespec js + angular
+            bundles.Add(new ScriptBundle("~/bundles/loomaaed").Include(
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular-route.js",
+                      "~/angularApp/app.js",
+                      "~/angularApp/Owner/*.js",
+                      "~/angularApp/Pet/*.js",
+                      "~/Scripts/jQuery/jquery-2.1.3.js"));
         }
     }
 }

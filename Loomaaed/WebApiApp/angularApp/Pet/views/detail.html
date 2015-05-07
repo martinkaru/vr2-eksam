@@ -1,5 +1,39 @@
-﻿<div ng-controller="carDetailCtrl">
-    <label>Car ID:</label>{{Car.CarID}}<br/>
-    <label>Make:</label>{{Car.Make}}<br />
-    <label>Model:</label>{{Car.Model}}<br />
+﻿<div ng-controller="petDetailCtrl">
+    <h1 ng-if="{{Pet.PetID}}">{{Pet.Name}} <small>(ID: {{Pet.PetID}})</small>
+    </h1>
+    <h1 ng-if="!{{Pet.PetID}}">Lisa uus lemmikloom</h1>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Nimi</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" placeholder="Nimi" value="{{Pet.Name}}" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="breed" class="col-sm-2 control-label">Tõug</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="breed" placeholder="Tõug" value="{{Pet.Breed}}" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="age" class="col-sm-2 control-label">Vanus</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="age" placeholder="Tõug" value="{{Pet.Age}}" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="owner" class="col-sm-2 control-label">Omanik</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="owner" placeholder="Omanik" value="{{Pet.Owner.FirstName}} {{Pet.Owner.FirstName}}" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" ng-click="petUpdate()">Muuda kirjet</button>
+                <button type="button" class="btn btn-danger" ng-click="petDelete()">Eemalda lemmiklooma kirje</button>
+            </div>
+        </div>
+    </form>
 </div>

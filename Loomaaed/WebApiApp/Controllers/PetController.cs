@@ -22,19 +22,19 @@ namespace WebApiApp.Controllers
             _petFactory = new PetDTOFactory();
         }
 
-        // GET api/values
+        // GET api/pet
         public List<PetDTO> Get()
         {
             return _petService.GetAllPets();
         }
 
-        // GET api/values/5
+        // GET api/pet/5
         public PetDTO Get(int id)
         {
             return _petService.GetPetById(id);
         }
 
-        // POST api/values
+        // POST api/pet
         [ResponseType(typeof (PetDTO))]
         public IHttpActionResult Post([FromBody] PetDTO pet)
         {
@@ -44,7 +44,7 @@ namespace WebApiApp.Controllers
             return CreatedAtRoute("DefaultApi", new {id = pet.PetID}, pet);
         }
 
-        // PUT api/values/5
+        // PUT api/pet/5
         public IHttpActionResult Put(int id, [FromBody] PetDTO pet)
         {
             if (!id.Equals(pet.PetID))
@@ -58,15 +58,21 @@ namespace WebApiApp.Controllers
             return Ok(pet);
         }
 
-        // DELETE api/values/5
+        // DELETE api/pet/5
         public IHttpActionResult Delete(int id)
         {
-            PetDTO pet = _petService.GetPetById(id);
+            var pet = _petService.GetPetById(id);
 
             _uow.Pets.Delete(_petFactory.CreateModel(pet));
             _uow.Commit();
 
             return Ok(pet);
+        }
+
+        // GET api/pet/getEmptyDto
+        public PetDTO GetEmptyDto()
+        {
+            return new PetDTO();
         }
     }
 }

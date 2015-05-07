@@ -34,4 +34,12 @@ app.service("petService", function($http) {
                 console.log(data);
             });
     };
+    this.GetEmptyDto = function (id) {
+        console.log("petService - GetEmptyDto", values);
+        $http.get("/api/pet/getEmptyDto")
+            .success(function (data) {
+                alert("ok");
+                console.log(data);
+            });
+    };
 });

@@ -57,11 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContextFactory.cs" />
-    <Compile Include="EFConfiguration\UserRoleMap.cs" />
-    <Compile Include="EFConfiguration\RoleMap.cs" />
-    <Compile Include="EFConfiguration\UserClaimMap.cs" />
-    <Compile Include="EFConfiguration\UserLoginMap.cs" />
-    <Compile Include="EFConfiguration\UserMap.cs" />
     <Compile Include="Helpers\EFRepositoryFactories.cs" />
     <Compile Include="Helpers\EFRepositoryProvider.cs" />
     <Compile Include="Interfaces\IDbContext.cs" />

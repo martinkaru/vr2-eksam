@@ -35,13 +35,13 @@ namespace WebApiApp.Controllers
         }
 
         // POST api/values
-        [ResponseType(typeof(OwnerDTO))]
+        [ResponseType(typeof (OwnerDTO))]
         public IHttpActionResult Post([FromBody] OwnerDTO owner)
         {
             _uow.Owners.Add(_ownerFactory.CreateModel(owner));
             _uow.Commit();
 
-            return CreatedAtRoute("DefaultApi", new { id = owner.OwnerID }, owner);
+            return CreatedAtRoute("DefaultApi", new {id = owner.OwnerID}, owner);
         }
 
         // PUT api/values/5
@@ -61,7 +61,7 @@ namespace WebApiApp.Controllers
         // DELETE api/values/5
         public IHttpActionResult Delete(int id)
         {
-            OwnerDTO owner = _ownerService.GetOwnerById(id);
+            var owner = _ownerService.GetOwnerById(id);
 
             _uow.Owners.Delete(_ownerFactory.CreateModel(owner));
             _uow.Commit();
@@ -72,7 +72,7 @@ namespace WebApiApp.Controllers
         // DELETE api/values/5
         public IHttpActionResult DeleteLogically(int id)
         {
-            OwnerDTO owner = _ownerService.GetOwnerById(id);
+            var owner = _ownerService.GetOwnerById(id);
             owner.IsActive = false;
 
             _uow.Owners.Update(_ownerFactory.CreateModel(owner));
@@ -94,6 +94,12 @@ namespace WebApiApp.Controllers
             _uow.Commit();
 
             return Ok(owner);
+        }
+
+        // GET api/owner/getEmptyDto
+        public OwnerDTO getEmptyDto()
+        {
+            return new OwnerDTO();
         }
     }
 }

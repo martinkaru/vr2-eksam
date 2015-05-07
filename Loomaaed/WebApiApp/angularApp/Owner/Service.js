@@ -42,9 +42,17 @@ app.service("ownerService", function($http) {
                 console.log(data);
             });
     };
-    this.putLogically = function(id, values) {
-        console.log("ownerService - update", values);
-        $http.put("/api/owner/putLogically" + id)
+    this.putLogically = function(id) {
+        console.log("ownerService - update", id);
+        $http.put("/api/owner/putLogically?id=" + id)
+            .success(function(data) {
+                alert("ok");
+                console.log(data);
+            });
+    };
+    this.GetEmptyDto = function (id) {
+        console.log("ownerService - GetEmptyDto", values);
+        $http.get("/api/owner/getEmptyDto")
             .success(function(data) {
                 alert("ok");
                 console.log(data);

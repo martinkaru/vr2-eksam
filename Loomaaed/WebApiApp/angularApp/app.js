@@ -2,48 +2,48 @@
 
 var app;
 (function() {
-    app = angular.module("martinModule", ["ngRoute"]);
+    app = angular.module("animalModule", ["ngRoute"]);
     console.log("martinModule");
 })();
 
 app.config(function($routeProvider, $locationProvider) {
 
-    // User routes
+    // Owner routes
     $routeProvider
-        .when("/users", {
-            templateUrl: "/angularApp/user/views/list.html",
+        .when("/owners", {
+            templateUrl: "/angularApp/owner/views/list.html",
             controller: "userListCtrl"
         })
-        .when("/user/:id", {
-            templateUrl: "/angularApp/user/views/detail.html",
-            controller: "userDetailCtrl"
+        .when("/owner/:id", {
+            templateUrl: "/angularApp/owner/views/detail.html",
+            controller: "ownerDetailCtrl"
         })
-        .when("/users/new", {
-            templateUrl: "/angularApp/user/views/edit.html",
-            controller: "userDetailCtrl"
+        .when("/owners/edit/:id", {
+            templateUrl: "/angularApp/owner/views/edit.html",
+            controller: "ownerDetailCtrl"
         })
-        .when("/users/edit/:id", {
-            templateUrl: "/angularApp/user/views/edit.html",
-            controller: "userDetailCtrl"
+        .when("/owners/new", {
+            templateUrl: "/angularApp/owner/views/edit.html",
+            controller: "ownerDetailCtrl"
         });
 
-    // Car routes
+    // Pet routes
     $routeProvider
-        .when("/cars", {
-            templateUrl: "/angularApp/car/views/list.html",
-            controller: "carListCtrl"
+        .when("/pets", {
+            templateUrl: "/angularApp/pet/views/list.html",
+            controller: "petListCtrl"
         })
-        .when("/car/:id", {
-            templateUrl: "/angularApp/car/views/detail.html",
-            controller: "carDetailCtrl"
+        .when("/pet/:id", {
+            templateUrl: "/angularApp/pet/views/detail.html",
+            controller: "petDetailCtrl"
         })
-        .when("/cars/new", {
-            templateUrl: "/angularApp/car/views/edit.html",
-            controller: "carDetailCtrl"
+        .when("/pets/edit/:id", {
+            templateUrl: "/angularApp/pet/views/edit.html",
+            controller: "petDetailCtrl"
         })
-        .when("/cars/edit/:id", {
-            templateUrl: "/angularApp/car/views/edit.html",
-            controller: "carDetailCtrl"
+        .when("/pets/new", {
+            templateUrl: "/angularApp/pet/views/edit.html",
+            controller: "petDetailCtrl"
         });
 
 });

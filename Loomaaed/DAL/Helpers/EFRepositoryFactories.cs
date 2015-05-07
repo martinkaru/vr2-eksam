@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interfaces;
 using DAL.Repositories;
+using NLog;
 
 namespace DAL.Helpers
 {
     public class EFRepositoryFactories : IDisposable
     {
-        private readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly string _instanceId = Guid.NewGuid().ToString();
-
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IDictionary<Type, Func<IDbContext, object>> _repositoryFactories;
 
         public EFRepositoryFactories()
         {
-			_logger.Info("_instanceId: " + _instanceId);
+            _logger.Info("_instanceId: " + _instanceId);
 
             _repositoryFactories = GetCustomFactories();
         }
@@ -25,29 +22,30 @@ namespace DAL.Helpers
         //this ctor is for testing only, you can give here an arbitrary list of repos
         public EFRepositoryFactories(IDictionary<Type, Func<IDbContext, object>> factories)
         {
-			_logger.Info("_instanceId: " + _instanceId);
+            _logger.Info("_instanceId: " + _instanceId);
 
             _repositoryFactories = factories;
+        }
+
+        public void Dispose()
+        {
+            _logger.Info("_instanceId: " + _instanceId);
         }
 
         //special repos with custom interfaces are registered here
         private static IDictionary<Type, Func<IDbContext, object>> GetCustomFactories()
         {
             return new Dictionary<Type, Func<IDbContext, object>>
-                {
-                    {typeof(IOwnerRepository), dbContext => new UserRepository(dbContext)},
-                    {typeof(IUserRoleRepository), dbContext => new UserRoleRepository(dbContext)},
-                    {typeof(IUserClaimRepository), dbContext => new UserClaimRepository(dbContext)},
-                    {typeof(IUserLoginRepository), dbContext => new UserLoginRepository(dbContext)},
-                    {typeof(IRoleRepository), dbContext => new RoleRepository(dbContext)},
-                };
+            {
+                {typeof (IOwnerRepository), dbContext => new OwnerRepository(dbContext)},
+                {typeof (IPetRepository), dbContext => new PetRepository(dbContext)}
+            };
         }
 
         public Func<IDbContext, object> GetRepositoryFactory<T>()
         {
-
             Func<IDbContext, object> factory;
-            _repositoryFactories.TryGetValue(typeof(T), out factory);
+            _repositoryFactories.TryGetValue(typeof (T), out factory);
             return factory;
         }
 
@@ -63,10 +61,5 @@ namespace DAL.Helpers
             // create new instance of EFRepository<T>
             return dbContext => new EFRepository<T>(dbContext);
         }
-
-	    public void Dispose()
-	    {
-			_logger.Info("_instanceId: " + _instanceId);
-	    }
     }
 }

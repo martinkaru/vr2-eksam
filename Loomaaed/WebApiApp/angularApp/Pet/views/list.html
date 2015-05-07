@@ -1,18 +1,34 @@
-﻿<div ng-controller="carListCtrl">
-    <table border="1">
-        <thead>
+﻿<div ng-controller="petListCtrl">
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a href="/#/pets/new" class="btn btn-default pull-right">Lisa uus</a>
+        </div>
+    </div>
+    <div class="table-responsive row">
+        <table class="table">
+            <thead>
             <tr>
-                <td>Id</td>
-                <td>CarName</td>
-                <td>Email</td>
+                <th>ID</th>
+                <th>Nimi</th>
+                <th>Tõug</th>
+                <th>Vanus</th>
+                <th>Omanik</th>
+                <th>Muuda/Kustuta</th>
             </tr>
-        </thead>
-        <tbody ng-repeat="Car in Cars">
-            <tr>
-                <td>{{Car.CarID}}</td>
-                <td>{{Car.Make}}</td>
-                <td>{{Car.Model}}</td>
+            </thead>
+            <tbody>
+            <tr ng-repeat="Pet in Pets">
+                <td>{{Pet.PetID}}</td>
+                <td>{{Pet.Name}}</td>
+                <td>{{Pet.Breed}}</td>
+                <td>{{Pet.Age}}</td>
+                <td>{{Pet.Owner.FirstName}} {{Pet.Owner.FirstName}} <small>(ID: {{Pet.Owner.OwnerID}})</small></td>
+                <td>
+                    <a href="/#/pets/edit/{{Pet.PetID}}" class="btn btn-default btn-sm">Muuda</a>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="petDelete(Pet.PetID)">Kustuta</button>
+                </td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
