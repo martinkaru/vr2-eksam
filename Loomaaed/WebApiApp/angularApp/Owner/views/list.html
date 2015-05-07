@@ -1,0 +1,18 @@
+﻿<div ng-controller="userListCtrl">
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>UserName</td>
+                <td>Email</td>
+            </tr>
+        </thead>
+        <tbody ng-repeat="User in Users">
+            <tr>
+                <td>{{User.UserID}}</td>
+                <td>{{User.UserName}}</td>
+                <td>{{User.Email}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,18 @@
+﻿<div ng-controller="carListCtrl">
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>CarName</td>
+                <td>Email</td>
+            </tr>
+        </thead>
+        <tbody ng-repeat="Car in Cars">
+            <tr>
+                <td>{{Car.CarID}}</td>
+                <td>{{Car.Make}}</td>
+                <td>{{Car.Model}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,39 @@
+﻿<div ng-controller="carDetailCtrl">
+    <h1>
+        <span ng-if="$routeParams.id">Muuda auto andmeid</span>
+        <span ng-if="!$routeParams.id">Lisa uus auto</span>
+    </h1>
+    <div ng-if="errors" class="alert alert-danger" role="alert">{{errors}}</div>
+
+
+    <form role="form" id="carForm">
+        <div class="form-group">
+            <label for="CarID">Car ID:</label>
+            <input type="text" name="CarID" class="form-control" id="CarID" readonly>
+        </div>
+        <div class="form-group">
+            <label for="Make">Auto mark:</label>
+            <input type="text" name="Make" class="form-control" id="Make">
+        </div>
+        <div class="form-group">
+            <label for="Model">Mudel:</label>
+            <input type="text" name="Model" class="form-control" id="Model">
+        </div>
+
+        <!-- public int CarID { get; set; }-->
+        <!-- public string Make { get; set; }-->
+        <!-- public string Model { get; set; }-->
+        <!-- public string EngineSize { get; set; }-->
+        <!-- public string VINCode { get; set; }-->
+        <!-- public double Price { get; set; }-->
+        <!-- public DateTime InitialRegistrationDate { get; set; }-->
+        <!-- public Enums.FuelType Fuel { get; set; }-->
+        <!-- public Enums.TransmissionType Transmission { get; set; }-->
+        <!-- public Enums.BodyType Body { get; set; }-->
+
+        <div class="checkbox">
+            <label><input type="checkbox" name="IsSold"> Müüdud?</label>
+        </div>
+        <button class="btn btn-default" ng-click="submitData()" ng-disabled="buttonDisabled">Salvesta</button>
+    </form>
+</div>
