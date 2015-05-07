@@ -25,7 +25,7 @@ namespace BLL.Service
 
         public PetDTO GetPetById(int id)
         {
-            var pet = _uow.Pets.GetById(id);
+            var pet = _uow.Pets.GetPetById(id);
             return _petFactory.CreateDTO(pet);
         }
 

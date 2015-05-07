@@ -17,5 +17,11 @@ namespace DAL.Repositories
                 .Where(a => a.Name.ToUpper().Contains(name))
                 .ToList();
         }
+
+        public Pet GetPetById(int id)
+        {
+            return DbSet
+                .FirstOrDefault(a => a.PetID.Equals(id));
+        }
     }
 }

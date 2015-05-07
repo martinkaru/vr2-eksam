@@ -14,11 +14,11 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: "/angularApp/owner/views/list.html",
             controller: "userListCtrl"
         })
-        .when("/owner/:id", {
+        .when("/owners/:id", {
             templateUrl: "/angularApp/owner/views/detail.html",
             controller: "ownerDetailCtrl"
         })
-        .when("/owners/edit/:id", {
+        .when("/owners/edit/{id:int}", {
             templateUrl: "/angularApp/owner/views/edit.html",
             controller: "ownerDetailCtrl"
         })
@@ -33,7 +33,7 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: "/angularApp/pet/views/list.html",
             controller: "petListCtrl"
         })
-        .when("/pet/:id", {
+        .when("/pets/{id:int}", {
             templateUrl: "/angularApp/pet/views/detail.html",
             controller: "petDetailCtrl"
         })

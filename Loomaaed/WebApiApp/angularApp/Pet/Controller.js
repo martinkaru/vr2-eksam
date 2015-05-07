@@ -30,6 +30,14 @@ app
             .then(
                 function(pl) {
                     $scope.Pet = pl.data;
+
+                    $scope.submitData = function () {
+                        petService.createNew($("form#petForm").serialize());
+                    };
+
+                    $scope.$watch(attrs['Pet'], function() {
+                        alert('muutus');
+                    });
                 },
                 function(errorPl) {
                     $log.error("failure loading Pet", errorPl);
@@ -37,8 +45,4 @@ app
                     $scope.errors = "Error loading Pet " + $routeParams.id + " - " + errorPl.statusText;
                 });
 
-        $scope.submitData = function() {
-            //            $scope.buttonDisabled = true;
-            petService.createNew($("form#petForm").serialize());
-        };
     });

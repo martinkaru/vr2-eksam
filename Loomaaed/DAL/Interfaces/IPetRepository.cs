@@ -6,5 +6,6 @@ namespace DAL.Interfaces
     public interface IPetRepository : IEFRepository<Pet>
     {
         List<Pet> GetPetsByName(string name);
+        Pet GetPetById(int id);
     }
 }

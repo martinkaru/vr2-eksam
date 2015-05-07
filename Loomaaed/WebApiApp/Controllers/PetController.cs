@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BLL.DTO;
@@ -8,7 +9,6 @@ using DAL.Interfaces;
 
 namespace WebApiApp.Controllers
 {
-    [Authorize]
     public class PetController : ApiController
     {
         private readonly PetDTOFactory _petFactory;
@@ -29,9 +29,9 @@ namespace WebApiApp.Controllers
         }
 
         // GET api/pet/5
-        public PetDTO Get(int id)
+        public PetDTO Get(int petId)
         {
-            return _petService.GetPetById(id);
+            return _petService.GetPetById(petId);
         }
 
         // POST api/pet
@@ -45,9 +45,9 @@ namespace WebApiApp.Controllers
         }
 
         // PUT api/pet/5
-        public IHttpActionResult Put(int id, [FromBody] PetDTO pet)
+        public IHttpActionResult Put(int petId, [FromBody] PetDTO pet)
         {
-            if (!id.Equals(pet.PetID))
+            if (!petId.Equals(pet.PetID))
             {
                 return NotFound();
             }
@@ -59,9 +59,9 @@ namespace WebApiApp.Controllers
         }
 
         // DELETE api/pet/5
-        public IHttpActionResult Delete(int id)
+        public IHttpActionResult Delete(int petId)
         {
-            var pet = _petService.GetPetById(id);
+            var pet = _petService.GetPetById(petId);
 
             _uow.Pets.Delete(_petFactory.CreateModel(pet));
             _uow.Commit();

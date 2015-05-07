@@ -1,47 +1,50 @@
 ﻿<div ng-controller="petDetailCtrl">
-    <h1 ng-if="{{Pet.PetID}}">
+    <h1 ng-if="Pet.PetID">
         {{Pet.Name}} <small>(ID: {{Pet.PetID}})</small>
     </h1>
-    <h1 ng-if="!{{Pet.PetID}}">Lisa uus lemmikloom</h1>
+    <h1 ng-if="!Pet.PetID">Lisa uus lemmikloom</h1>
 
     <form class="form-horizontal">
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">Nimi</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" placeholder="Nimi" value="{{Pet.Name}}" />
+                <input type="text" class="form-control" id="name" placeholder="Nimi" value="{{Pet.Name}}"/>
             </div>
         </div>
         <div class="form-group">
             <label for="breed" class="col-sm-2 control-label">Tõug</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="breed" placeholder="Tõug" value="{{Pet.Breed}}" />
+                <input type="text" class="form-control" id="breed" placeholder="Tõug" value="{{Pet.Breed}}"/>
             </div>
         </div>
         <div class="form-group">
             <label for="age" class="col-sm-2 control-label">Vanus</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="age" placeholder="Tõug" value="{{Pet.Age}}" />
+                <input type="text" class="form-control" id="age" placeholder="Vanus" value="{{Pet.Age}}"/>
             </div>
         </div>
         <div class="form-group">
             <label for="owner" class="col-sm-2 control-label">Omanik</label>
             <div class="col-sm-10">
-
-                <select id="owner" class="form-control">
-                    <div ng-repeat="Owner in Owners">
-                        <option value="{{Owner.OwnerID}}" ng-selected="Pet.Owner.OwnerID == Owner.OwnerID">
-                            {{Owner.FirstName}} {{Owner.FirstName}}
-                            <small>(ID: {{Owner.OwnerID}})</small>
-                        </option>
-                    </div>
-                </select>
+                <span ng-if="Owners">
+                    <select id="owner" class="form-control">
+                            <option value="{{Owner.OwnerID}}" ng-selected="Pet.Owner.OwnerID == Owner.OwnerID" ng-repeat="Owner in Owners">
+                                {{Owner.FirstName}} {{Owner.FirstName}}
+                                (ID: {{Owner.OwnerID}})
+                            </option>
+                    </select>
+                </span>
+                <div ng-if="!Owners">
+                    <input type="text" class="form-control" id="age" placeholder="Ühtegi omanikku ei leitud andmebaasist" value="Ühtegi omanikku ei leitud andmebaasist" readonly/>
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" ng-click="petUpdate()">Salvesta</button>
-                <button type="button" class="btn btn-danger" ng-click="petDelete(Pet.PetID)">Kustuta</button>
+                <button type="submit" class="btn btn-primary" ng-click="petUpdate()">Salvesta</button>
+                <button type="button" class="btn btn-danger" ng-click="petDelete(Pet.PetID)" ng-if="Pet.PetID">Kustuta</button>
+                <a href="/#/pets" class="btn btn-default">Katkesta</a>
             </div>
         </div>
     </form>

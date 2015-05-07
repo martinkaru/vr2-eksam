@@ -8,7 +8,6 @@ using DAL.Interfaces;
 
 namespace WebApiApp.Controllers
 {
-    [Authorize]
     public class OwnerController : ApiController
     {
         private readonly OwnerDTOFactory _ownerFactory;
@@ -29,9 +28,9 @@ namespace WebApiApp.Controllers
         }
 
         // GET api/values/5
-        public OwnerDTO Get(int id)
+        public OwnerDTO Get(int ownerId)
         {
-            return _ownerService.GetOwnerById(id);
+            return _ownerService.GetOwnerById(ownerId);
         }
 
         // POST api/values
@@ -45,9 +44,9 @@ namespace WebApiApp.Controllers
         }
 
         // PUT api/values/5
-        public IHttpActionResult Put(int id, [FromBody] OwnerDTO owner)
+        public IHttpActionResult Put(int ownerId, [FromBody] OwnerDTO owner)
         {
-            if (!id.Equals(owner.OwnerID))
+            if (!ownerId.Equals(owner.OwnerID))
             {
                 return NotFound();
             }
@@ -59,9 +58,9 @@ namespace WebApiApp.Controllers
         }
 
         // DELETE api/values/5
-        public IHttpActionResult Delete(int id)
+        public IHttpActionResult Delete(int ownerId)
         {
-            var owner = _ownerService.GetOwnerById(id);
+            var owner = _ownerService.GetOwnerById(ownerId);
 
             _uow.Owners.Delete(_ownerFactory.CreateModel(owner));
             _uow.Commit();
@@ -70,9 +69,9 @@ namespace WebApiApp.Controllers
         }
 
         // DELETE api/values/5
-        public IHttpActionResult DeleteLogically(int id)
+        public IHttpActionResult DeleteLogically(int ownerId)
         {
-            var owner = _ownerService.GetOwnerById(id);
+            var owner = _ownerService.GetOwnerById(ownerId);
             owner.IsActive = false;
 
             _uow.Owners.Update(_ownerFactory.CreateModel(owner));

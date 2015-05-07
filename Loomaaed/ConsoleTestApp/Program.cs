@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
-using DAL.Helpers;
-using DAL.Interfaces;
-using Domain.IdentityModels;
 using Newtonsoft.Json;
-using Ninject;
 
 namespace ConsoleTestApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             RunAsync().Wait();
 
@@ -44,9 +37,8 @@ namespace ConsoleTestApp
             //var res = ctx.Owners.Find(userId).Roles.Any(a => a.Role.Name == roleName);
         }
 
-        static async Task RunAsync()
+        private static async Task RunAsync()
         {
-
             using (var client = new HttpClient())
             {
                 // no https in the school's computers
@@ -73,7 +65,7 @@ namespace ConsoleTestApp
                     Console.WriteLine("--------------------");
 
                     // add the token to headers
-                    client.DefaultRequestHeaders.Authorization = 
+                    client.DefaultRequestHeaders.Authorization =
                         new AuthenticationHeaderValue("Bearer", token.AccessToken);
                     response = await client.GetAsync("api/values/");
 
@@ -89,7 +81,7 @@ namespace ConsoleTestApp
                     else
                     {
                         Console.WriteLine(response.StatusCode + " " + response.ReasonPhrase);
-                    }                
+                    }
                 }
                 else
                 {
@@ -106,10 +98,10 @@ namespace ConsoleTestApp
 
         [JsonProperty(PropertyName = "expires_in")]
         public string ExpiresIn { get; set; }
-        
+
         [JsonProperty(PropertyName = "token_type")]
         public string TokenType { get; set; }
-        
+
         [JsonProperty(PropertyName = "userName")]
         public string UserName { get; set; }
     }
