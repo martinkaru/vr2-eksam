@@ -27,5 +27,11 @@ namespace DAL.Repositories
             return DbSet
                 .FirstOrDefault(a => a.Email.ToUpper().Contains(email));
         }
+
+        public Owner GetOwnerById(int id)
+        {
+            return DbSet
+                .FirstOrDefault(a => a.OwnerID.Equals(id));
+        }
     }
 }

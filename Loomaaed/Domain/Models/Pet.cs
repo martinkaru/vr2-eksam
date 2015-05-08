@@ -8,6 +8,6 @@
         public string Breed { get; set; }
         public string Age { get; set; }
 
-        public Owner Owner { get; set; }
+        public int? OwnerID { get; set; }
     }
 }

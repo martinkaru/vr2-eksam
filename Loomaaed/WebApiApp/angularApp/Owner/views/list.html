@@ -1,18 +1,49 @@
-﻿<div ng-controller="userListCtrl">
-    <table border="1">
-        <thead>
-            <tr>
-                <td>Id</td>
-                <td>UserName</td>
-                <td>Email</td>
+﻿<div ng-controller="ownerListCtrl">
+    <h1>Klientide nimekiri</h1>
+
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a href="/#/owners/new" class="btn btn-primary pull-right">Lisa uus</a>
+        </div>
+    </div>
+    <div class="table-responsive row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nimi</th>
+                    <th>E-mail</th>
+                    <th>Isikukood</th>
+                    <th>Sünniaeg</th>
+                    <th>Viimane uuendus</th>
+                    <th>Aktiivne?</th>
+                    <th>Muuda/Kustuta</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="Owner in Owners">
+                <td>{{Owner.OwnerID}}</td>
+                <td>{{Owner.FirstName}} {{Owner.LastName}}</td>
+                <td>{{Owner.Email}}</td>
+                <td>{{Owner.PersonalCode}}</td>
+                <td>{{Owner.DateOfBirth}}</td>
+                <td>{{Owner.LastProfileUpdate}}</td>
+                <td>{{Owner.StateIsActive}}</td>
+                <td>
+                    <a href="/#/owners/edit/{{Owner.OwnerID}}" class="btn btn-default btn-sm">Muuda</a>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="ownerDelete(Owner.OwnerID)">Kustuta</button>
+                    <button type="button" class="btn btn-warning btn-sm"
+                            ng-click="ownerDeleteLogically(Owner.OwnerID)"
+                            ng-if="Owner.IsActive">
+                        Mitteaktiivseks
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm"
+                            ng-click="ownerPutLogically(Owner.OwnerID)">
+                        Aktiivseks
+                    </button>
+                </td>
             </tr>
-        </thead>
-        <tbody ng-repeat="User in Users">
-            <tr>
-                <td>{{User.UserID}}</td>
-                <td>{{User.UserName}}</td>
-                <td>{{User.Email}}</td>
-            </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -8,28 +8,32 @@ namespace BLL.ObjectFactory
         public PetDTO CreateDTO(Pet pet)
         {
             var ownerFactory = new OwnerDTOFactory();
-            return new PetDTO
+            var petDto = new PetDTO
             {
                 PetID = pet.PetID,
                 Name = pet.Name,
                 Breed = pet.Breed,
                 Age = pet.Age,
-                Owner = ownerFactory.CreateDTO(pet.Owner)
+                OwnerID = pet.OwnerID
             };
+            
+            return petDto;
         }
 
         public Pet CreateModel(PetDTO petDto)
         {
-            OwnerDTOFactory ownerFactory = new OwnerDTOFactory();
+            var ownerFactory = new OwnerDTOFactory();
 
-            return new Pet
+            var pet = new Pet
             {
                 PetID = petDto.PetID,
                 Name = petDto.Name,
                 Breed = petDto.Breed,
                 Age = petDto.Age,
-                Owner = ownerFactory.CreateModel(petDto.Owner),
+                OwnerID = petDto.OwnerID
             };
+
+            return pet;
         }
     }
 }

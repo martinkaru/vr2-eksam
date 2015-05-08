@@ -13,28 +13,36 @@ namespace WebApiApp.Controllers
     {
         private readonly PetDTOFactory _petFactory;
         private readonly PetService _petService;
+        private readonly OwnerService _ownerService;
         private readonly IUOW _uow;
 
         public PetController(IUOW uow)
         {
             _uow = uow;
             _petService = new PetService(uow);
+            _ownerService = new OwnerService(uow);
             _petFactory = new PetDTOFactory();
         }
 
-        // GET api/pet
+        // GET api/pet/get
         public List<PetDTO> Get()
         {
             return _petService.GetAllPets();
         }
 
-        // GET api/pet/5
+        // GET api/pet/GetAllByOwnerID
+        public List<PetDTO> GetAllByOwnerID(int ownerID)
+        {
+            return _petService.GetPetsByOwnerID(ownerID);
+        }
+
+        // GET api/pet/get/5
         public PetDTO Get(int petId)
         {
             return _petService.GetPetById(petId);
         }
 
-        // POST api/pet
+        // POST api/pet/post
         [ResponseType(typeof (PetDTO))]
         public IHttpActionResult Post([FromBody] PetDTO pet)
         {
@@ -44,7 +52,7 @@ namespace WebApiApp.Controllers
             return CreatedAtRoute("DefaultApi", new {id = pet.PetID}, pet);
         }
 
-        // PUT api/pet/5
+        // PUT api/pet/put/5
         public IHttpActionResult Put(int petId, [FromBody] PetDTO pet)
         {
             if (!petId.Equals(pet.PetID))
@@ -58,7 +66,7 @@ namespace WebApiApp.Controllers
             return Ok(pet);
         }
 
-        // DELETE api/pet/5
+        // DELETE api/pet/delete/5
         public IHttpActionResult Delete(int petId)
         {
             var pet = _petService.GetPetById(petId);

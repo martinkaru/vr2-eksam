@@ -34,6 +34,11 @@ namespace BLL.Service
             return convertPetsToDtos(_uow.Pets.GetPetsByName(name).ToList());
         }
 
+        public List<PetDTO> GetPetsByOwnerID(int ownerID)
+        {
+            return convertPetsToDtos(_uow.Pets.GetPetsByOwnerID(ownerID).ToList());
+        }
+
         private List<PetDTO> convertPetsToDtos(List<Pet> pets)
         {
             return pets

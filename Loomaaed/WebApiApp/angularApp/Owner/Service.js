@@ -14,23 +14,20 @@ app.service("ownerService", function($http) {
         console.log("ownerService - create ", values);
         return $http.post("/api/owner/post", values)
             .success(function(data) {
-                alert("ok");
                 console.log(data);
             });
     };
     this.update = function(id, values) {
         console.log("ownerService - update", values);
-        return $http.put("/api/owner/put" + id, values) // $scope.Pet
+        return $http.put("/api/owner/put?ownerId=" + id, values)
             .success(function(data) {
-                alert("ok");
                 console.log(data);
             });
     };
-    this.deletePhysically = function(id) {
+    this.delete = function(id) {
         console.log("ownerService - delete physically", id);
-        return $http.delete("/api/owner/delete" + id)
+        return $http.delete("/api/owner/deleteOwner?ownerId=" + id)
             .success(function(data) {
-                alert("ok");
                 console.log(data);
             });
     };
@@ -38,15 +35,13 @@ app.service("ownerService", function($http) {
         console.log("ownerService - delete logically", id);
         return $http.delete("/api/owner/deleteLogically" + id)
             .success(function(data) {
-                alert("ok");
                 console.log(data);
             });
     };
     this.putLogically = function(id) {
         console.log("ownerService - update", id);
-        return $http.put("/api/owner/putLogically?id=" + id)
+        return $http.put("/api/owner/putLogically?ownerId=" + id)
             .success(function(data) {
-                alert("ok");
                 console.log(data);
             });
     };
@@ -54,7 +49,6 @@ app.service("ownerService", function($http) {
         console.log("ownerService - GetEmptyDto");
         return $http.get("/api/owner/getEmptyDto")
             .success(function(data) {
-                alert("ok");
                 console.log(data);
             });
     };

@@ -18,6 +18,13 @@ namespace DAL.Repositories
                 .ToList();
         }
 
+        public List<Pet> GetPetsByOwnerID(int ownerID)
+        {
+            return DbSet
+                .Where(a => a.OwnerID.Equals(ownerID))
+                .ToList();
+        }
+
         public Pet GetPetById(int id)
         {
             return DbSet

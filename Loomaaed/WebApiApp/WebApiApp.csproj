@@ -257,12 +257,10 @@
     <Content Include="angularApp\app.js" />
     <Content Include="angularApp\Pet\Controller.js" />
     <Content Include="angularApp\Pet\Service.js" />
-    <Content Include="angularApp\Pet\views\detail.html" />
     <Content Include="angularApp\Pet\views\edit.html" />
     <Content Include="angularApp\Pet\views\list.html" />
     <Content Include="angularApp\Owner\Controller.js" />
     <Content Include="angularApp\Owner\Service.js" />
-    <Content Include="angularApp\Owner\views\detail.html" />
     <Content Include="angularApp\Owner\views\edit.html" />
     <Content Include="angularApp\Owner\views\list.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />

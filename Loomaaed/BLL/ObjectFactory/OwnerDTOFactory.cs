@@ -15,15 +15,9 @@ namespace BLL.ObjectFactory
                 LastName = owner.LastName,
                 Email = owner.Email,
                 DateOfBirth = owner.DateOfBirth,
-                LastProfileUpdate = owner.LastProfileUpdate
+                LastProfileUpdate = owner.LastProfileUpdate,
+                StateIsActive = owner.StateIsActive
             };
-        }
-
-        public OwnerDTO CreateDTO(Owner owner, PetDTO[] pets)
-        {
-            var ownerDto = CreateDTO(owner);
-            ownerDto.Pets = pets;
-            return ownerDto;
         }
 
         public Owner CreateModel(OwnerDTO owner)
@@ -36,15 +30,9 @@ namespace BLL.ObjectFactory
                 LastName = owner.LastName,
                 Email = owner.Email,
                 DateOfBirth = owner.DateOfBirth,
-                LastProfileUpdate = owner.LastProfileUpdate
+                LastProfileUpdate = owner.LastProfileUpdate,
+                StateIsActive = owner.StateIsActive
             };
-        }
-
-        public Owner CreateModel(OwnerDTO owner, Pet[] pets)
-        {
-            var ownerModel = CreateModel(owner);
-            ownerModel.Pets = pets;
-            return ownerModel;
         }
     }
 }

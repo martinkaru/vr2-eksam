@@ -1,5 +1,94 @@
-﻿<div ng-controller="userDetailCtrl">
-    <label>UserID:</label><input name="Id" value="{{User.Id}}" /><br/>
-    <label>UserName:</label><input name="UserName" value="{{User.UserName}}" /><br/>
-    <label>Email:</label><input name="Email" value="{{User.Email}}" /><br/>
+﻿<div ng-controller="ownerDetailCtrl">
+    <h1 ng-if="Owner.OwnerID">
+        Muuda klienti ID: {{Owner.OwnerID}}
+    </h1>
+    <h1 ng-if="!Owner.OwnerID">Lisa uus klient</h1>
+
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a href="/#/owners" class="btn btn-default pull-right">Tagasi nimekirja</a>
+        </div>
+    </div>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">Eesnimi</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="firstname" placeholder="Eesnimi"
+                       ng-model="Owner.FirstName"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">Perenimi</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="lastname" placeholder="Perenimi"
+                       ng-model="Owner.LastName"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">E-mail</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" placeholder="nimi@example.com"
+                       ng-model="Owner.Email"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="personalCode" class="col-sm-2 control-label">Isikukood</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="personalCode" placeholder="31010101234"
+                       ng-model="Owner.PersonalCode"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirth" class="col-sm-2 control-label">Sünniaeg</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="dateOfBirth" placeholder="23.märts 1990"
+                       ng-model="Owner.DateOfBirth"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastUpdate" class="col-sm-2 control-label">Viimane uuendus</label>
+            <div class="col-sm-10">
+                <p>{{Owner.LastProfileUpdate}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="owner" class="col-sm-2 control-label">Omanik</label>
+            <div class="col-sm-10">
+                <span ng-if="Owner.Pets">
+                    <ul>
+                        <li ng-repeat="Pet in Owner.Pets">
+                            {{Pet.Name}} (ID: {{Pet.PetID}}) - <a href="/#/pet/edit/{{Pet.PetID}}">Muuda andmeid</a>
+                        </li>
+                    </ul>
+                </span>
+                <div ng-if="!Owner.Pets">
+                    <p>Lemmiklooma seosed puuduvad</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="isActive" class="col-sm-2 control-label">Staatus</label>
+            <div class="col-sm-10">
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="true" id="isActive"
+                               ng-model="Owner.StateIsActive">
+                        Aktiivne
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" ng-click="ownerUpdate()">Salvesta</button>
+                <button type="button" class="btn btn-danger" ng-click="ownerDelete(Owner.OwnerID)" ng-if="Owner.OwnerID">Kustuta</button>
+                <a href="/#/owners" class="btn btn-default">Katkesta</a>
+            </div>
+        </div>
+    </form>
 </div>

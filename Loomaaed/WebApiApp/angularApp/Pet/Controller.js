@@ -2,8 +2,6 @@
 /// <reference path="../app.js" />
 app
     .controller("petListCtrl", function($scope, $log, petService) {
-        $scope.$routeParams = $routeParams;
-
         petService
             .getAll()
             .then(
@@ -15,34 +13,51 @@ app
                     $scope.errors = errorPl.message;
                 });
     })
-    .controller("petDetailCtrl", function($scope, $routeParams, $log, petService) {
+    .controller("petDetailCtrl", function($scope, $routeParams, $log, $location, petService, ownerService) {
         $scope.$routeParams = $routeParams;
-        var promise;
 
+        // action buttons
+        $scope.petUpdate = function() {
+            if ($scope.Pet.PetID) {
+                petService.update($scope.Pet.PetID, $scope.Pet).success(function (data) {
+                    $location.path("/pets");
+                });
+            } else {
+                petService.create($scope.Pet).success(function(data) {
+                    $location.path("/pets");
+                });
+            }
+        };
+        $scope.petDelete = function(id) {
+            petService.petDelete(id).success(function() {
+                $location.path("/pets");
+            });
+        };
+
+
+        // get active data
+        var promise;
         if ($routeParams.id) {
             promise = petService.getOne($routeParams.id);
         } else {
             promise = petService.GetEmptyDto();
         }
-
-
         promise
             .then(
                 function(pl) {
                     $scope.Pet = pl.data;
-
-                    $scope.submitData = function () {
-                        petService.createNew($("form#petForm").serialize());
-                    };
-
-                    $scope.$watch(attrs['Pet'], function() {
-                        alert('muutus');
-                    });
                 },
                 function(errorPl) {
                     $log.error("failure loading Pet", errorPl);
-                    console.log($log.error.get);
-                    $scope.errors = "Error loading Pet " + $routeParams.id + " - " + errorPl.statusText;
+                });
+
+        ownerService.getAll()
+            .then(
+                function (pl) {
+                    $scope.Owners = pl.data;
+                },
+                function (errorPl) {
+                    $log.error("failure loading Owners", errorPl);
                 });
 
     });

@@ -25,7 +25,7 @@ namespace BLL.Service
 
         public OwnerDTO GetOwnerById(int id)
         {
-            Owner owner = _uow.Owners.GetById(id);
+            Owner owner = _uow.Owners.GetOwnerById(id);
             return _ownerFactory.CreateDTO(owner);
         }
 

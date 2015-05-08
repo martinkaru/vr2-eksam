@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BLL.DTO;
 using BLL.ObjectFactory;
 using BLL.Service;
 using DAL.Interfaces;
+using Domain.Models;
 
 namespace WebApiApp.Controllers
 {
@@ -37,6 +39,7 @@ namespace WebApiApp.Controllers
         [ResponseType(typeof (OwnerDTO))]
         public IHttpActionResult Post([FromBody] OwnerDTO owner)
         {
+            owner.LastProfileUpdate = DateTime.Now.ToString();
             _uow.Owners.Add(_ownerFactory.CreateModel(owner));
             _uow.Commit();
 
@@ -50,6 +53,7 @@ namespace WebApiApp.Controllers
             {
                 return NotFound();
             }
+            owner.LastProfileUpdate = DateTime.Now.ToString();
 
             _uow.Owners.Update(_ownerFactory.CreateModel(owner));
             _uow.Commit();
@@ -58,22 +62,37 @@ namespace WebApiApp.Controllers
         }
 
         // DELETE api/values/5
-        public IHttpActionResult Delete(int ownerId)
+        public IHttpActionResult DeleteOwner(int ownerId)
         {
-            var owner = _ownerService.GetOwnerById(ownerId);
+            Owner owner = _uow.Owners.GetOwnerById(ownerId);
+            if (owner == null)
+            {
+                return NotFound();
+            }
 
-            _uow.Owners.Delete(_ownerFactory.CreateModel(owner));
+            foreach (Pet pet in owner.Pets)
+            {
+                pet.OwnerID = null;
+                _uow.Pets.Update(pet);
+            }
+
+            _uow.Owners.Delete(owner);
             _uow.Commit();
 
-            return Ok(owner);
+            return Ok(_ownerFactory.CreateDTO(owner));
         }
 
         // DELETE api/values/5
         public IHttpActionResult DeleteLogically(int ownerId)
         {
             var owner = _ownerService.GetOwnerById(ownerId);
-            owner.IsActive = false;
+            if (owner == null)
+            {
+                return NotFound();
+            }
 
+            owner.StateIsActive = false;
+            owner.LastProfileUpdate = DateTime.Now.ToLongTimeString();
             _uow.Owners.Update(_ownerFactory.CreateModel(owner));
             _uow.Commit();
 
@@ -81,18 +100,22 @@ namespace WebApiApp.Controllers
         }
 
         // DELETE api/values/5
-        public IHttpActionResult PutLogically(int id, [FromBody] OwnerDTO owner)
+        public IHttpActionResult PutLogically(int ownerId)
         {
-            if (!id.Equals(owner.OwnerID))
+            Owner owner = _uow.Owners.GetOwnerById(ownerId);
+            if (owner == null)
             {
-                return NotFound();
+                return Ok("Owner not found: " + ownerId);
+//                return NotFound(); // not found errors need better error handling..
             }
-            owner.IsActive = true;
 
-            _uow.Owners.Update(_ownerFactory.CreateModel(owner));
+            owner.StateIsActive = true;
+            owner.LastProfileUpdate = DateTime.Now.ToString();
+
+            _uow.Owners.Update(owner);
             _uow.Commit();
 
-            return Ok(owner);
+            return Ok(_ownerFactory.CreateDTO(owner));
         }
 
         // GET api/owner/getEmptyDto

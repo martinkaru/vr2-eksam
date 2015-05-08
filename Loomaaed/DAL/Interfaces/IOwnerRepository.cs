@@ -7,5 +7,6 @@ namespace DAL.Interfaces
     {
         List<Owner> GetOwnerByName(string userName);
         Owner GetOwnerByEmail(string email);
+        Owner GetOwnerById(int id);
     }
 }

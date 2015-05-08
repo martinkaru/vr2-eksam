@@ -6,6 +6,10 @@ app.service("petService", function($http) {
         console.log("petService - getAll");
         return $http.get("/api/pet/get");
     };
+    this.getAllByOwnerID = function(ownerId) {
+        console.log("petService - getAllByOwnerId " + ownerId);
+        return $http.get("/api/pet/getAllByOwnerID?ownerId=" + ownerId);
+    };
     this.getOne = function(id) {
         console.log("petService - getOne ", id);
         return $http.get("/api/pet/get?petId=" + id);
@@ -19,7 +23,7 @@ app.service("petService", function($http) {
     };
     this.update = function(id, values) {
         console.log("petService - update ", values);
-        return $http.put("/api/pet/put?petId=" + id, values) // $scope.Pet
+        return $http.put("/api/pet/put?petId=" + id, values)
             .success(function(data) {
                 console.log(data);
             });
