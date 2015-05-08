@@ -59,7 +59,7 @@
                 <span ng-if="Owner.Pets">
                     <ul>
                         <li ng-repeat="Pet in Owner.Pets">
-                            {{Pet.Name}} (ID: {{Pet.PetID}}) - <a href="/#/pet/edit/{{Pet.PetID}}">Muuda andmeid</a>
+                            {{Pet.Name}} (ID: {{Pet.PetID}}) - <a href="/#/pets/edit/{{Pet.PetID}}">Muuda andmeid</a>
                         </li>
                     </ul>
                 </span>
@@ -87,6 +87,19 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary" ng-click="ownerUpdate()">Salvesta</button>
                 <button type="button" class="btn btn-danger" ng-click="ownerDelete(Owner.OwnerID)" ng-if="Owner.OwnerID">Kustuta</button>
+
+                <button type="button" class="btn btn-warning btn-sm"
+                        ng-click="ownerDeleteLogically(Owner.OwnerID)"
+                        ng-if="Owner.StateIsActive">
+                    Mitteaktiivseks
+                </button>
+                <button type="button" class="btn btn-success btn-sm"
+                        ng-click="ownerPutLogically(Owner.OwnerID)"
+                        ng-if="!Owner.StateIsActive">
+                    Aktiivseks
+                </button>
+
+
                 <a href="/#/owners" class="btn btn-default">Katkesta</a>
             </div>
         </div>

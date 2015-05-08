@@ -28,19 +28,12 @@
                 <td>{{Owner.PersonalCode}}</td>
                 <td>{{Owner.DateOfBirth}}</td>
                 <td>{{Owner.LastProfileUpdate}}</td>
-                <td>{{Owner.StateIsActive}}</td>
+                <td>
+                    <span ng-if="Owner.StateIsActive">Jah</span>
+                    <span ng-if="!Owner.StateIsActive">Ei</span>
+                </td>
                 <td>
                     <a href="/#/owners/edit/{{Owner.OwnerID}}" class="btn btn-default btn-sm">Muuda</a>
-                    <button type="button" class="btn btn-danger btn-sm" ng-click="ownerDelete(Owner.OwnerID)">Kustuta</button>
-                    <button type="button" class="btn btn-warning btn-sm"
-                            ng-click="ownerDeleteLogically(Owner.OwnerID)"
-                            ng-if="Owner.IsActive">
-                        Mitteaktiivseks
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm"
-                            ng-click="ownerPutLogically(Owner.OwnerID)">
-                        Aktiivseks
-                    </button>
                 </td>
             </tr>
             </tbody>

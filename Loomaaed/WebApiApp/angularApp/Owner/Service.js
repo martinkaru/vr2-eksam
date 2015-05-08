@@ -6,6 +6,10 @@ app.service("ownerService", function($http) {
         console.log("ownerService - getAll");
         return $http.get("/api/owner/get");
     };
+    this.getAllActive = function() {
+        console.log("ownerService - getAllActive");
+        return $http.get("/api/owner/getAllActive");
+    };
     this.getOne = function(id) {
         console.log("ownerService - getOne ", id);
         return $http.get("/api/owner/get?ownerId=" + id);
@@ -33,7 +37,7 @@ app.service("ownerService", function($http) {
     };
     this.deleteLogically = function(id) {
         console.log("ownerService - delete logically", id);
-        return $http.delete("/api/owner/deleteLogically" + id)
+        return $http.delete("/api/owner/deleteLogically?ownerId=" + id)
             .success(function(data) {
                 console.log(data);
             });

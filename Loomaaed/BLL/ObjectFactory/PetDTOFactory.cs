@@ -16,7 +16,7 @@ namespace BLL.ObjectFactory
                 Age = pet.Age,
                 OwnerID = pet.OwnerID
             };
-            
+
             return petDto;
         }
 

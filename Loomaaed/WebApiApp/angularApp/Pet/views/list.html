@@ -14,7 +14,6 @@
                 <th>Nimi</th>
                 <th>Tõug</th>
                 <th>Vanus</th>
-                <th>Omanik</th>
                 <th>Muuda/Kustuta</th>
             </tr>
             </thead>
@@ -24,10 +23,8 @@
                 <td>{{Pet.Name}}</td>
                 <td>{{Pet.Breed}}</td>
                 <td>{{Pet.Age}}</td>
-                <td>{{Pet.Owner.FirstName}} {{Pet.Owner.FirstName}} <small>(ID: {{Pet.Owner.OwnerID}})</small></td>
                 <td>
                     <a href="/#/pets/edit/{{Pet.PetID}}" class="btn btn-default btn-sm">Muuda</a>
-                    <button type="button" class="btn btn-danger btn-sm" ng-click="petDelete(Pet.PetID)">Kustuta</button>
                 </td>
             </tr>
             </tbody>

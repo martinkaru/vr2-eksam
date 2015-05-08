@@ -6,6 +6,7 @@ using BLL.DTO;
 using BLL.ObjectFactory;
 using BLL.Service;
 using DAL.Interfaces;
+using Domain.Models;
 
 namespace WebApiApp.Controllers
 {
@@ -69,12 +70,12 @@ namespace WebApiApp.Controllers
         // DELETE api/pet/delete/5
         public IHttpActionResult Delete(int petId)
         {
-            var pet = _petService.GetPetById(petId);
+            Pet pet = _uow.Pets.GetPetById(petId);
 
-            _uow.Pets.Delete(_petFactory.CreateModel(pet));
+            _uow.Pets.Delete(pet);
             _uow.Commit();
 
-            return Ok(pet);
+            return Ok(_petFactory.CreateDTO(pet));
         }
 
         // GET api/pet/getEmptyDto

@@ -3,7 +3,6 @@ using System.Linq;
 using BLL.DTO;
 using BLL.ObjectFactory;
 using DAL.Interfaces;
-using Domain.Models;
 
 namespace BLL.Service
 {
@@ -23,9 +22,18 @@ namespace BLL.Service
             return _uow.Owners.All.ToList().Select(x => _ownerFactory.CreateDTO(x)).ToList();
         }
 
+        public List<OwnerDTO> GetAllActiveOwners()
+        {
+            return _uow.Owners.All
+                .Where(x => x.StateIsActive)
+                .ToList()
+                .Select(x => _ownerFactory.CreateDTO(x))
+                .ToList();
+        }
+
         public OwnerDTO GetOwnerById(int id)
         {
-            Owner owner = _uow.Owners.GetOwnerById(id);
+            var owner = _uow.Owners.GetOwnerById(id);
             return _ownerFactory.CreateDTO(owner);
         }
 

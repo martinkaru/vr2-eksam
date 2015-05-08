@@ -21,7 +21,7 @@ namespace DAL.Repositories
         public List<Pet> GetPetsByOwnerID(int ownerID)
         {
             return DbSet
-                .Where(a => a.OwnerID.Equals(ownerID))
+                .Where(a => a.OwnerID == ownerID)
                 .ToList();
         }
 

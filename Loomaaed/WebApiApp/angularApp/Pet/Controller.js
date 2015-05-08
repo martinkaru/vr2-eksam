@@ -28,8 +28,9 @@ app
                 });
             }
         };
-        $scope.petDelete = function(id) {
-            petService.petDelete(id).success(function() {
+        $scope.petDelete = function (id) {
+            console.log('delete');
+            petService.delete(id).success(function() {
                 $location.path("/pets");
             });
         };
@@ -51,7 +52,7 @@ app
                     $log.error("failure loading Pet", errorPl);
                 });
 
-        ownerService.getAll()
+        ownerService.getAllActive()
             .then(
                 function (pl) {
                     $scope.Owners = pl.data;
@@ -59,5 +60,4 @@ app
                 function (errorPl) {
                     $log.error("failure loading Owners", errorPl);
                 });
-
     });

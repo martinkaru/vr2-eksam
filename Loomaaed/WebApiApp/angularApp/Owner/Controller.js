@@ -2,25 +2,6 @@
 /// <reference path="../app.js" />
 app
     .controller("ownerListCtrl", function($scope, $log, ownerService) {
-
-        // action buttons
-        $scope.ownerDelete = function(id) {
-            ownerService.delete(id).success(function() {
-                $location.path("/owners");
-            });
-        };
-        $scope.ownerDeleteLogically = function(id) {
-            ownerService.deleteLogically(id).success(function() {
-                $location.path("/owners");
-            });
-        };
-        $scope.ownerPutLogically = function(id) {
-            ownerService.putLogically(id).success(function() {
-                $location.path("/owners");
-            });
-        };
-
-
         ownerService
             .getAll()
             .then(
@@ -49,6 +30,25 @@ app
             }
         };
 
+        // deleting buttons
+        $scope.ownerDelete = function (id) {
+            ownerService.delete(id).success(function (data) {
+                $location.path("/owners");
+            });
+        };
+        $scope.ownerDeleteLogically = function (id) {
+            ownerService.deleteLogically(id).success(function (pl) {
+                $scope.Owner = pl.data;
+                $location.path("/owners");
+            });
+        };
+        $scope.ownerPutLogically = function (id) {
+            ownerService.putLogically(id).success(function (pl) {
+                $scope.Owner = pl.data;
+                $location.path("/owners");
+            });
+        };
+
         // get active data
         var promise;
         if ($routeParams.id) {
@@ -60,6 +60,7 @@ app
             .then(
                 function(pl) {
                     $scope.Owner = pl.data;
+                    $scope.Owner.DateOfBirth = new Date($scope.Owner.DateOfBirth);
 
                     if ($routeParams.id) {
                         // get pets
